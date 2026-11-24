@@ -46,7 +46,7 @@ const gl = (() => { const c = document.getElementById('gl').getContext('webgl2')
 window.__gpu = gl;
 say('hazır · ' + gl.replace(/^ANGLE \(|\(0x.*$/g, ''));
 window.kayit = async ({ from = 0, to, name } = {}) => {
-  if (!(await ready())) { say('önce klasörü seç / izin ver'); return 'no-folder'; }
+  const toFolder = await ready();
   const M = window.__meta, FPS = M.FPS, W = M.W, H = M.H; to = to ?? M.DUR;
   const N = Math.round((to - from) * FPS), out = document.getElementById('out');
   // audio: the story's mix, encoded to AAC
@@ -80,8 +80,13 @@ window.kayit = async ({ from = 0, to, name } = {}) => {
   }
   muxer.finalize();
   const fname = (name || M.NAME) + '.mp4';
-  const fh = await dir.getFileHandle(fname, { create: true }), w = await fh.createWritable();
-  await w.write(muxer.target.buffer); await w.close();
+  if (toFolder) { const fh = await dir.getFileHandle(fname, { create: true }), w = await fh.createWritable(); await w.write(muxer.target.buffer); await w.close(); }
+  else {                                                     // no folder: a big download button (the user's own click)
+    const url = URL.createObjectURL(new Blob([muxer.target.buffer], { type: 'video/mp4' }));
+    let a = document.getElementById('dl'); if (!a) { a = document.createElement('a'); a.id = 'dl'; document.getElementById('ui').prepend(a); }
+    a.href = url; a.download = fname; a.textContent = '⬇ ' + fname + ' indir';
+    a.style.cssText = 'font:700 22px system-ui;padding:16px 22px;border-radius:10px;background:#3fd88a;color:#10201a;text-decoration:none';
+  }
   const sec = ((performance.now() - t0) / 1000).toFixed(0);
   say(`bitti: ${fname} · ${N} kare · ${sec} sn`);
   return { file: fname, frames: N, seconds: +sec, bytes: muxer.target.buffer.byteLength };
