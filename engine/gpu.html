@@ -68,7 +68,7 @@ window.kayit = async ({ from = 0, to, name } = {}) => {
   await venc.flush(); venc.close();
   if (abuf) {
     const aenc = new AudioEncoder({ output: (c, m) => muxer.addAudioChunk(c, m), error: e => say('ses hata: ' + e.message) });
-    aenc.configure({ codec: 'mp4a.40.2', sampleRate: 48000, numberOfChannels: 2, bitrate: 256000 });
+    aenc.configure({ codec: 'mp4a.40.2', sampleRate: 48000, numberOfChannels: 2, bitrate: 192000 });
     const s0 = Math.round(from * 48000), s1 = Math.min(abuf.length, Math.round(to * 48000));
     const L = abuf.getChannelData(0), R = abuf.numberOfChannels > 1 ? abuf.getChannelData(1) : L;
     for (let s = s0; s < s1; s += 1024) {
