@@ -1,0 +1,440 @@
+{
+ "words": [
+  {
+   "word": "İngiliz",
+   "start": 0.08,
+   "end": 0.405
+  },
+  {
+   "word": "donanması",
+   "start": 0.405,
+   "end": 0.826
+  },
+  {
+   "word": "bir",
+   "start": 0.826,
+   "end": 0.96
+  },
+  {
+   "word": "hastalığı",
+   "start": 0.96,
+   "end": 1.381
+  },
+  {
+   "word": "yendi,",
+   "start": 1.381,
+   "end": 1.611
+  },
+  {
+   "word": "sonra",
+   "start": 1.811,
+   "end": 2.038
+  },
+  {
+   "word": "onu",
+   "start": 2.038,
+   "end": 2.265
+  },
+  {
+   "word": "kendi",
+   "start": 2.265,
+   "end": 2.491
+  },
+  {
+   "word": "eliyle",
+   "start": 2.491,
+   "end": 2.813
+  },
+  {
+   "word": "geri",
+   "start": 2.813,
+   "end": 3.039
+  },
+  {
+   "word": "çağırdı.",
+   "start": 3.039,
+   "end": 3.361
+  },
+  {
+   "word": "Bakın,",
+   "start": 3.721,
+   "end": 4.078
+  },
+  {
+   "word": "denizciler",
+   "start": 4.278,
+   "end": 4.731
+  },
+  {
+   "word": "her",
+   "start": 4.731,
+   "end": 4.874
+  },
+  {
+   "word": "gün",
+   "start": 4.874,
+   "end": 5.018
+  },
+  {
+   "word": "biraz",
+   "start": 5.018,
+   "end": 5.265
+  },
+  {
+   "word": "limon",
+   "start": 5.265,
+   "end": 5.512
+  },
+  {
+   "word": "suyu",
+   "start": 5.512,
+   "end": 5.758
+  },
+  {
+   "word": "içiyor",
+   "start": 5.758,
+   "end": 6.108
+  },
+  {
+   "word": "ve",
+   "start": 6.108,
+   "end": 6.252
+  },
+  {
+   "word": "iskorbüt",
+   "start": 6.252,
+   "end": 6.601
+  },
+  {
+   "word": "neredeyse",
+   "start": 6.601,
+   "end": 7.053
+  },
+  {
+   "word": "yok",
+   "start": 7.053,
+   "end": 7.197
+  },
+  {
+   "word": "oluyor.",
+   "start": 7.197,
+   "end": 7.547
+  },
+  {
+   "word": "Sonra",
+   "start": 7.907,
+   "end": 8.168
+  },
+  {
+   "word": "amiraller",
+   "start": 8.168,
+   "end": 8.648
+  },
+  {
+   "word": "gülüyor:",
+   "start": 8.648,
+   "end": 9.019
+  },
+  {
+   "word": "\"Misket",
+   "start": 9.279,
+   "end": 9.535
+  },
+  {
+   "word": "limonu",
+   "start": 9.535,
+   "end": 9.899
+  },
+  {
+   "word": "da",
+   "start": 9.899,
+   "end": 10.049
+  },
+  {
+   "word": "aynı",
+   "start": 10.049,
+   "end": 10.306
+  },
+  {
+   "word": "şey,",
+   "start": 10.306,
+   "end": 10.456
+  },
+  {
+   "word": "üstelik",
+   "start": 10.656,
+   "end": 10.965
+  },
+  {
+   "word": "bizim",
+   "start": 10.965,
+   "end": 11.184
+  },
+  {
+   "word": "adalarda",
+   "start": 11.184,
+   "end": 11.584
+  },
+  {
+   "word": "yetişiyor.\"",
+   "start": 11.584,
+   "end": 11.985
+  },
+  {
+   "word": "Ama",
+   "start": 12.345,
+   "end": 12.592
+  },
+  {
+   "word": "misket",
+   "start": 12.592,
+   "end": 12.839
+  },
+  {
+   "word": "limonunda",
+   "start": 12.839,
+   "end": 13.292
+  },
+  {
+   "word": "o",
+   "start": 13.292,
+   "end": 13.436
+  },
+  {
+   "word": "gizli",
+   "start": 13.436,
+   "end": 13.683
+  },
+  {
+   "word": "madde",
+   "start": 13.683,
+   "end": 13.93
+  },
+  {
+   "word": "çok",
+   "start": 13.93,
+   "end": 14.074
+  },
+  {
+   "word": "daha",
+   "start": 14.074,
+   "end": 14.321
+  },
+  {
+   "word": "az.",
+   "start": 14.321,
+   "end": 14.465
+  },
+  {
+   "word": "Üstelik",
+   "start": 14.825,
+   "end": 15.132
+  },
+  {
+   "word": "suyu",
+   "start": 15.132,
+   "end": 15.348
+  },
+  {
+   "word": "bakır",
+   "start": 15.348,
+   "end": 15.565
+  },
+  {
+   "word": "kazanlarda",
+   "start": 15.565,
+   "end": 15.962
+  },
+  {
+   "word": "kaynatılıyor",
+   "start": 15.962,
+   "end": 16.449
+  },
+  {
+   "word": "ve",
+   "start": 16.449,
+   "end": 16.575
+  },
+  {
+   "word": "kalanı",
+   "start": 16.575,
+   "end": 16.881
+  },
+  {
+   "word": "da",
+   "start": 16.881,
+   "end": 17.008
+  },
+  {
+   "word": "yok",
+   "start": 17.008,
+   "end": 17.134
+  },
+  {
+   "word": "oluyor.",
+   "start": 17.134,
+   "end": 17.441
+  },
+  {
+   "word": "Tıpkı",
+   "start": 17.801,
+   "end": 18.021
+  },
+  {
+   "word": "sıkılmış",
+   "start": 18.021,
+   "end": 18.333
+  },
+  {
+   "word": "portakal",
+   "start": 18.333,
+   "end": 18.646
+  },
+  {
+   "word": "suyunun",
+   "start": 18.646,
+   "end": 18.958
+  },
+  {
+   "word": "bekledikçe",
+   "start": 18.958,
+   "end": 19.362
+  },
+  {
+   "word": "gücünü",
+   "start": 19.362,
+   "end": 19.675
+  },
+  {
+   "word": "kaybetmesi",
+   "start": 19.675,
+   "end": 20.079
+  },
+  {
+   "word": "gibi.",
+   "start": 20.079,
+   "end": 20.299
+  },
+  {
+   "word": "Gemiler",
+   "start": 20.659,
+   "end": 21.03
+  },
+  {
+   "word": "hızlandığı",
+   "start": 21.03,
+   "end": 21.509
+  },
+  {
+   "word": "için",
+   "start": 21.509,
+   "end": 21.77
+  },
+  {
+   "word": "yıllarca",
+   "start": 21.77,
+   "end": 22.141
+  },
+  {
+   "word": "kimse",
+   "start": 22.141,
+   "end": 22.402
+  },
+  {
+   "word": "fark",
+   "start": 22.402,
+   "end": 22.555
+  },
+  {
+   "word": "etmiyor.",
+   "start": 22.555,
+   "end": 22.925
+  },
+  {
+   "word": "Ta",
+   "start": 23.285,
+   "end": 23.417
+  },
+  {
+   "word": "ki",
+   "start": 23.417,
+   "end": 23.549
+  },
+  {
+   "word": "uzun",
+   "start": 23.549,
+   "end": 23.775
+  },
+  {
+   "word": "kutup",
+   "start": 23.775,
+   "end": 24.001
+  },
+  {
+   "word": "seferlerinde",
+   "start": 24.001,
+   "end": 24.51
+  },
+  {
+   "word": "denizcilerin",
+   "start": 24.51,
+   "end": 25.019
+  },
+  {
+   "word": "dişleri",
+   "start": 25.019,
+   "end": 25.34
+  },
+  {
+   "word": "yeniden",
+   "start": 25.34,
+   "end": 25.66
+  },
+  {
+   "word": "sallanana",
+   "start": 25.66,
+   "end": 26.075
+  },
+  {
+   "word": "dek.",
+   "start": 26.075,
+   "end": 26.207
+  },
+  {
+   "word": "Yani",
+   "start": 26.567,
+   "end": 26.837
+  },
+  {
+   "word": "ilaç",
+   "start": 26.837,
+   "end": 27.107
+  },
+  {
+   "word": "değişti.",
+   "start": 27.107,
+   "end": 27.49
+  },
+  {
+   "word": "Sadece",
+   "start": 27.85,
+   "end": 28.19
+  },
+  {
+   "word": "adı",
+   "start": 28.19,
+   "end": 28.431
+  },
+  {
+   "word": "aynı",
+   "start": 28.431,
+   "end": 28.672
+  },
+  {
+   "word": "kaldı.",
+   "start": 28.672,
+   "end": 28.912
+  }
+ ],
+ "duration": 29.242
+}
