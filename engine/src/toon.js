@@ -126,6 +126,11 @@ const PROPS = {
   tea(g, x, y) { g.save(); g.translate(x, y - 30); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#c8402a';
     g.beginPath(); g.moveTo(-20, -34); g.quadraticCurveTo(-10, 0, -20, 34); g.lineTo(20, 34); g.quadraticCurveTo(10, 0, 20, -34); g.closePath(); g.fill(); g.stroke();
     g.fillStyle = '#ffffff'; g.globalAlpha = .5; g.fillRect(-12, -26, 5, 40); g.restore(); },
+  ticket(g, x, y) { g.save(); g.translate(x, y - 40); g.rotate(-.15); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#ffd84a';
+    g.beginPath(); g.roundRect(-58, -34, 116, 68, 8); g.fill(); g.stroke(); g.fillStyle = '#c8433a'; g.beginPath(); g.arc(-30, 0, 16, 0, 6.29); g.fill();
+    g.fillStyle = '#2a2440'; for (let k = 0; k < 3; k++) g.fillRect(0, -16 + k * 12, 40, 5); g.restore(); },
+  mic(g, x, y) { g.save(); g.translate(x, y - 20); g.rotate(.3); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#2a2440';
+    g.beginPath(); g.roundRect(-9, -10, 18, 70, 6); g.fill(); g.stroke(); g.fillStyle = '#b8bfd0'; g.beginPath(); g.arc(0, -24, 18, 0, 6.29); g.fill(); g.stroke(); g.restore(); },
   ladle(g, x, y, s) { g.save(); g.translate(x, y); g.rotate(.3 * s); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#d8843e';
     g.beginPath(); g.roundRect(-5, -80, 10, 96, 5); g.fill(); g.stroke(); g.beginPath(); g.ellipse(0, 26, 22, 16, 0, 0, 6.29); g.fill(); g.stroke(); g.restore(); },
 };
