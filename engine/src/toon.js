@@ -164,6 +164,18 @@ function hat(g, kind, w, h, look, lit) {
     g.strokeStyle = PLUM; top(); g.stroke();
     g.fillStyle = col; g.beginPath(); g.roundRect(-w * .4, -h * .58, w * .8, h * .16, 10); g.fill(); g.stroke();
     g.strokeStyle = '#e8b84a'; g.lineWidth = 3; g.beginPath(); g.moveTo(-w * .34, -h * .5); g.lineTo(w * .34, -h * .5); g.stroke();
+  } else if (kind === 'slouch') {                     // a slouch hat: wide brim, one side pinned up, a band
+    const col = look.hatColor || '#a08a5a';
+    const brim = () => { g.beginPath(); g.ellipse(0, -h * .5, w * .7, h * .1, 0, 0, 6.29); };
+    shaded(g, brim, { cx: 0, cy: -h * .5, w: w * 1.4, h: h * .2 }, shade(col, 1.1), shade(col, .7), { lit, blur: 10, push: .12, lift: .1 });
+    g.strokeStyle = PLUM; brim(); g.stroke();
+    const crown = () => { g.beginPath(); g.moveTo(-w * .36, -h * .52); g.quadraticCurveTo(-w * .38, -h * .9, 0, -h * .92); g.quadraticCurveTo(w * .38, -h * .9, w * .36, -h * .52); g.closePath(); };
+    shaded(g, crown, { cx: 0, cy: -h * .72, w: w * .76, h: h * .4 }, shade(col, 1.2), shade(col, .75), { lit, blur: 10, push: .12, lift: .12 });
+    g.strokeStyle = PLUM; crown(); g.stroke();
+    g.fillStyle = look.hatBand || '#5a3a2a'; g.beginPath(); g.roundRect(-w * .36, -h * .6, w * .72, h * .07, 6); g.fill(); g.stroke();
+    const up = () => { g.beginPath(); g.moveTo(w * .3, -h * .5); g.quadraticCurveTo(w * .72, -h * .56, w * .66, -h * .86); g.quadraticCurveTo(w * .5, -h * .7, w * .3, -h * .6); g.closePath(); };
+    shaded(g, up, { cx: w * .5, cy: -h * .65, w: w * .4, h: h * .36 }, shade(col, 1.15), shade(col, .8), { lit, blur: 8, push: .1, lift: .1 });
+    g.strokeStyle = PLUM; up(); g.stroke();
   } else if (kind === 'knit') {                        // a knitted wool cap for the polar cold, with a pompom
     const col = look.hatColor || '#c8323a';
     const cap = () => { g.beginPath(); g.moveTo(-w * .46, -h * .38); g.quadraticCurveTo(-w * .44, -h * .98, 0, -h * 1.0); g.quadraticCurveTo(w * .44, -h * .98, w * .46, -h * .38); g.closePath(); };
