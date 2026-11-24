@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>yumurta GPU kayıt</title>
+<!-- GPU render: the same engine, run in a normal browser (the GPU draws), encoded with WebCodecs (H.264 + AAC),
+     muxed to MP4 and written straight into a folder the user picks once (File System Access API).
+     Open: gpu.html?story=<name>&capture=1   then call window.kayit() (or press the button). -->
+<style>
+html,body{margin:0;background:#111;overflow:hidden;font:15px/1.4 system-ui,sans-serif;color:#eee}
+#out{display:block;height:100vh;margin:auto} #gl{position:absolute;left:-99999px}
+#ui{position:fixed;left:12px;top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:rgba(20,16,30,.85);padding:10px 12px;border-radius:10px;max-width:calc(100vw - 48px)}
+#ui button{font:600 15px system-ui;padding:10px 14px;border-radius:8px;border:0;background:#f0b63c;color:#1a1220;cursor:pointer}
+#st{min-width:220px}
+</style>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }
+</script>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<canvas id="out"></canvas>
+<div id="ui"><button id="pick">1) Yumurta klasörünü seç</button><button id="go">2) Videoyu oluştur</button><span id="st">hazırlanıyor…</span></div>
+<script type="module" src="./src/main.js"></script>
+<script type="module">
+import { Muxer, ArrayBufferTarget } from 'https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/+esm';
+const st = document.getElementById('st'), q = new URLSearchParams(location.search), STORY = q.get('story') || 'misket';
+const say = s => { st.textContent = s; window.__prog = s; };
+// the chosen folder is kept in IndexedDB, so it is picked only once per browser
+const idb = () => new Promise((res, rej) => { const r = indexedDB.open('yumurta', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => res(r.result); r.onerror = rej; });
+const kv = async (k, v) => { const db = await idb(); return new Promise(res => { const tx = db.transaction('kv', v === undefined ? 'readonly' : 'readwrite'); const s = tx.objectStore('kv'); const r = v === undefined ? s.get(k) : s.put(v, k); r.onsuccess = () => res(r.result); }); };
+let dir = await kv('dir').catch(() => null);
+const ready = async () => dir && (await dir.queryPermission({ mode: 'readwrite' })) === 'granted';
+document.getElementById('pick').onclick = async () => {
+  try { dir = await window.showDirectoryPicker({ id: 'yumurta', mode: 'readwrite' }); await kv('dir', dir); say('klasör: ' + dir.name); }
+  catch (e) { say('klasör seçilmedi'); }
+};
+document.getElementById('go').onclick = async () => {
+  if (dir && !(await ready())) await dir.requestPermission({ mode: 'readwrite' });
+  window.kayit();
+};
+window.__folder = async () => dir ? dir.name + ((await ready()) ? ' (izin var)' : ' (izin gerekli)') : 'yok';
+const wait = () => new Promise(r => { if (window.__ready) r(); else { const i = setInterval(() => { if (window.__ready) { clearInterval(i); r(); } }, 100); } });
+await wait();
+const gl = (() => { const c = document.getElementById('gl').getContext('webgl2'); const e = c && c.getExtension('WEBGL_debug_renderer_info'); return e ? c.getParameter(e.UNMASKED_RENDERER_WEBGL) : '?'; })();
+window.__gpu = gl;
+say('hazır · ' + gl.replace(/^ANGLE \(|\(0x.*$/g, ''));
+window.kayit = async ({ from = 0, to, name } = {}) => {
+  if (!(await ready())) { say('önce klasörü seç / izin ver'); return 'no-folder'; }
+  const M = window.__meta, FPS = M.FPS, W = M.W, H = M.H; to = to ?? M.DUR;
+  const N = Math.round((to - from) * FPS), out = document.getElementById('out');
+  // audio: the story's mix, encoded to AAC
+  let abuf = null;
+  try { const r = await fetch(`../stories/${STORY}/audio/mix.wav`); if (r.ok) abuf = await new AudioContext({ sampleRate: 48000 }).decodeAudioData(await r.arrayBuffer()); } catch (e) {}
+  const muxer = new Muxer({ target: new ArrayBufferTarget(), fastStart: 'in-memory',
+    video: { codec: 'avc', width: W, height: H, frameRate: FPS },
+    audio: abuf ? { codec: 'aac', sampleRate: 48000, numberOfChannels: 2 } : undefined });
+  const venc = new VideoEncoder({ output: (c, m) => muxer.addVideoChunk(c, m), error: e => say('video hata: ' + e.message) });
+  venc.configure({ codec: 'avc1.640034', width: W, height: H, bitrate: 18e6, framerate: FPS, avc: { format: 'avc' } });
+  const t0 = performance.now();
+  for (let i = 0; i < N; i++) {
+    window.render(from + i / FPS);
+    const vf = new VideoFrame(out, { timestamp: Math.round(i * 1e6 / FPS), duration: Math.round(1e6 / FPS) });
+    venc.encode(vf, { keyFrame: i % (FPS * 2) === 0 }); vf.close();
+    if (venc.encodeQueueSize > 6) await new Promise(r => venc.addEventListener('dequeue', r, { once: true }));
+    if (i % 15 === 0) { say(`kare ${i}/${N} · ${((performance.now() - t0) / 1000).toFixed(0)} sn`); await new Promise(r => setTimeout(r, 0)); }
+  }
+  await venc.flush(); venc.close();
+  if (abuf) {
+    const aenc = new AudioEncoder({ output: (c, m) => muxer.addAudioChunk(c, m), error: e => say('ses hata: ' + e.message) });
+    aenc.configure({ codec: 'mp4a.40.2', sampleRate: 48000, numberOfChannels: 2, bitrate: 256000 });
+    const s0 = Math.round(from * 48000), s1 = Math.min(abuf.length, Math.round(to * 48000));
+    const L = abuf.getChannelData(0), R = abuf.numberOfChannels > 1 ? abuf.getChannelData(1) : L;
+    for (let s = s0; s < s1; s += 1024) {
+      const n = Math.min(1024, s1 - s), d = new Float32Array(n * 2); d.set(L.subarray(s, s + n), 0); d.set(R.subarray(s, s + n), n);
+      const ad = new AudioData({ format: 'f32-planar', sampleRate: 48000, numberOfFrames: n, numberOfChannels: 2, timestamp: Math.round((s - s0) / 48 * 1000), data: d });
+      aenc.encode(ad); ad.close();
+    }
+    await aenc.flush(); aenc.close();
+  }
+  muxer.finalize();
+  const fname = (name || M.NAME) + '.mp4';
+  const fh = await dir.getFileHandle(fname, { create: true }), w = await fh.createWritable();
+  await w.write(muxer.target.buffer); await w.close();
+  const sec = ((performance.now() - t0) / 1000).toFixed(0);
+  say(`bitti: ${fname} · ${N} kare · ${sec} sn`);
+  return { file: fname, frames: N, seconds: +sec, bytes: muxer.target.buffer.byteLength };
+};
+</script>
+</body>
+</html>

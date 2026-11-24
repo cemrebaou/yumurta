@@ -6,11 +6,11 @@
 // galley = the fire under the copper pot vs a blue porthole; kitchen = sun through the window vs sky fill;
 // ice = the lantern vs aurora + moon.
 import * as THREE from 'three';
-import { stoneTex, woodTex, tileTex, ciniTex, frizTex, painted, flat, rng, D } from '/engine/src/paint.js';
-import { Toon, Arm3D, PLUM, flap, blinkAt } from '/engine/src/toon.js';
-import { CamPath, smoother } from '/engine/src/camera.js';
-import { Smoke, ribbon, beam, glow } from '/engine/src/fx.js';
-import { holedWall, vistaMat, dayGardenTex } from '/engine/src/vista.js';
+import { stoneTex, woodTex, tileTex, ciniTex, frizTex, painted, flat, rng, D } from '../../engine/src/paint.js';
+import { Toon, Arm3D, PLUM, flap, blinkAt } from '../../engine/src/toon.js';
+import { CamPath, smoother } from '../../engine/src/camera.js';
+import { Smoke, ribbon, beam, glow } from '../../engine/src/fx.js';
+import { holedWall, vistaMat, dayGardenTex } from '../../engine/src/vista.js';
 
 export const NAME = 'misket';
 export const FPS = 30;

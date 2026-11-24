@@ -8,12 +8,12 @@
 //   soot     Sinan's own lamp between the two figures (warm, shadows on the walls) against a blue grate
 //   scribe   low sun through a lattice window (warm pattern on desk and wall) + the desk lamp
 import * as THREE from 'three';
-import { stoneTex, woodTex, carpetTex, wallTex, domeTex, roundelTex, ciniTex, frizTex, sootTex, painted, flat, rng } from '/engine/src/paint.js';
-import { Toon, Arm3D, PLUM, flap, blinkAt } from '/engine/src/toon.js';
-import { CamPath, smoother } from '/engine/src/camera.js';
-import { Smoke, ribbon, beam, glow } from '/engine/src/fx.js';
-import { holedWall, vistaMat, nightCityTex, dayGardenTex } from '/engine/src/vista.js';
-import { kandil, kandilParts, voussoirArch, spandrel } from '/engine/src/props.js';
+import { stoneTex, woodTex, carpetTex, wallTex, domeTex, roundelTex, ciniTex, frizTex, sootTex, painted, flat, rng } from '../../engine/src/paint.js';
+import { Toon, Arm3D, PLUM, flap, blinkAt } from '../../engine/src/toon.js';
+import { CamPath, smoother } from '../../engine/src/camera.js';
+import { Smoke, ribbon, beam, glow } from '../../engine/src/fx.js';
+import { holedWall, vistaMat, nightCityTex, dayGardenTex } from '../../engine/src/vista.js';
+import { kandil, kandilParts, voussoirArch, spandrel } from '../../engine/src/props.js';
 
 export const NAME = 'is-odasi';
 export const FPS = 30;

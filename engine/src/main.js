@@ -19,7 +19,7 @@ renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadow
 renderer.shadowMap.autoUpdate = false;        // post.js refreshes the shadow maps once per frame, in the world pass
 const g = out.getContext('2d');
 
-const base = `/stories/${STORY}/`;
+const base = new URL(`../../stories/${STORY}/`, import.meta.url).href;
 const story = await import(base + 'story.js');
 const words = await (await fetch(base + (story.WORDS || 'voice/words.json'))).json();
 const env = await (await fetch(base + (story.ENV || 'voice/env.json'))).json().catch(() => []);
