@@ -112,6 +112,20 @@ const PROPS = {
     g.beginPath(); g.ellipse(0, 0, 34, 26, -.2, 0, 6.29); g.fill(); g.stroke(); g.fillStyle = '#fff3a0'; g.beginPath(); g.ellipse(-10, -8, 10, 6, -.3, 0, 6.29); g.fill(); g.restore(); },
   lime(g, x, y) { g.save(); g.translate(x, y - 20); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#6ec23a';
     g.beginPath(); g.ellipse(0, 0, 28, 24, -.2, 0, 6.29); g.fill(); g.stroke(); g.fillStyle = '#b6ec7a'; g.beginPath(); g.ellipse(-8, -8, 8, 5, -.3, 0, 6.29); g.fill(); g.restore(); },
+  phone(g, x, y) { g.save(); g.translate(x, y - 50); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#2a2440';
+    g.beginPath(); g.roundRect(-30, -56, 60, 112, 12); g.fill(); g.stroke(); g.fillStyle = '#ff8ad0'; g.beginPath(); g.roundRect(-22, -46, 44, 88, 6); g.fill();
+    g.fillStyle = '#ffffff'; g.beginPath(); g.arc(0, -6, 12, 0, 6.29); g.fill(); g.restore(); },
+  palette(g, x, y) { g.save(); g.translate(x, y - 30); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#2a2440';
+    g.beginPath(); g.roundRect(-62, -40, 124, 80, 10); g.fill(); g.stroke();
+    const C = ['#f2c8a0', '#d8956a', '#8a5038', '#ff5a86', '#4a7aff', '#c070ff'];
+    C.forEach((c, i) => { g.fillStyle = c; g.beginPath(); g.roundRect(-52 + (i % 3) * 36, -30 + Math.floor(i / 3) * 32, 30, 26, 5); g.fill(); g.lineWidth = 3; g.stroke(); });
+    g.restore(); },
+  brush(g, x, y, s) { g.save(); g.translate(x, y); g.rotate(-.5 * s); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#e8b84a';
+    g.beginPath(); g.roundRect(-7, -10, 14, 90, 6); g.fill(); g.stroke(); g.fillStyle = '#d0d0dc'; g.beginPath(); g.roundRect(-9, -34, 18, 26, 4); g.fill(); g.stroke();
+    g.fillStyle = '#8a5038'; g.beginPath(); g.ellipse(0, -52, 16, 22, 0, 0, 6.29); g.fill(); g.stroke(); g.restore(); },
+  tea(g, x, y) { g.save(); g.translate(x, y - 30); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#c8402a';
+    g.beginPath(); g.moveTo(-20, -34); g.quadraticCurveTo(-10, 0, -20, 34); g.lineTo(20, 34); g.quadraticCurveTo(10, 0, 20, -34); g.closePath(); g.fill(); g.stroke();
+    g.fillStyle = '#ffffff'; g.globalAlpha = .5; g.fillRect(-12, -26, 5, 40); g.restore(); },
   ladle(g, x, y, s) { g.save(); g.translate(x, y); g.rotate(.3 * s); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#d8843e';
     g.beginPath(); g.roundRect(-5, -80, 10, 96, 5); g.fill(); g.stroke(); g.beginPath(); g.ellipse(0, 26, 22, 16, 0, 0, 6.29); g.fill(); g.stroke(); g.restore(); },
 };
@@ -440,9 +454,21 @@ export class Toon {
     rimLight(g, hp, hb, p.rim, lit);
     if (p.soot) { g.save(); hp(); g.clip(); g.fillStyle = '#3a3048'; g.globalAlpha = .4 * p.soot; g.beginPath(); g.ellipse(hw * .22, hh * .14, 30, 18, .4, 0, 6.29); g.ellipse(-hw * .3, -hh * .2, 22, 12, -.3, 0, 6.29); g.fill(); g.restore(); }
     ink(g, hp);
+    if (p.mk) {                                                               // makeup: contour stripes, blush, eyeshadow, a lipstick smear (0..1 each)
+      const m = p.mk, lx = clamp(p.look || 0, -1, 1) * hw * .12;
+      g.save(); hp(); g.clip();
+      for (const s of [-1, 1]) {
+        if (m.contour) { g.globalAlpha = .7 * m.contour; g.fillStyle = '#8a5038'; g.beginPath(); g.ellipse(lx + s * hw * .42, hh * .08, hw * .2, hh * .05, -s * .55, 0, 6.29); g.fill(); g.beginPath(); g.ellipse(lx + s * hw * .36, -hh * .5, hw * .18, hh * .04, s * .3, 0, 6.29); g.fill(); }
+        if (m.blush) { g.globalAlpha = .55 * m.blush; g.fillStyle = '#ff5a86'; g.beginPath(); g.arc(lx + s * hw * .36, hh * .24, hw * .14, 0, 6.29); g.fill(); }
+        if (m.eye) { g.globalAlpha = .7 * m.eye; g.fillStyle = '#4a7aff'; g.beginPath(); g.ellipse(lx + s * hw * .2, -hh * .16, hw * .17, hh * .09, 0, 3.3, 6.12); g.fill(); }
+      }
+      if (m.contour) { g.globalAlpha = .6 * m.contour; g.fillStyle = '#8a5038'; g.fillRect(lx - hw * .03, -hh * .2, hw * .06, hh * .3); }
+      g.restore(); g.globalAlpha = 1;
+    }
     if (L.beard) beard(g, hw, hh, L, lit);
     if (L.hat && !L.hatBack) hat(g, L.hat, hw, hh, L, lit);
     face(g, hw, hh, p, L);                                                     // after the hat: raised brows stay visible on its edge
+    if (p.mk && p.mk.lips) { const lx = clamp(p.look || 0, -1, 1) * hw * .12; g.globalAlpha = .8 * p.mk.lips; g.fillStyle = '#e0204a'; g.beginPath(); g.ellipse(lx + hw * .04, hh * .36, hw * .2, hh * .07, .12, 0, 6.29); g.fill(); g.globalAlpha = 1; }
     if (p.sweat) { g.globalAlpha = Math.min(1, p.sweat); g.fillStyle = '#9fd4ff'; g.strokeStyle = PLUM; g.lineWidth = 5; g.beginPath(); g.moveTo(hw * .44, -hh * .3); g.quadraticCurveTo(hw * .58, -hh * .08, hw * .47, -hh * .04); g.quadraticCurveTo(hw * .35, -hh * .08, hw * .44, -hh * .3); g.fill(); g.stroke(); g.globalAlpha = 1; }
     if (p.laughMarks) { g.strokeStyle = PLUM; g.lineWidth = 6; g.lineCap = 'round'; g.globalAlpha = p.laughMarks; for (const s of [-1, 1]) for (let k = 0; k < 3; k++) { const a = (-40 + k * 25) * D2R; g.beginPath(); g.moveTo(s * (hw * .62 + 6), -hh * .1 + Math.sin(a) * 60); g.lineTo(s * (hw * .62 + 36), -hh * .1 + Math.sin(a) * 80); g.stroke(); } g.globalAlpha = 1; }
     g.restore();

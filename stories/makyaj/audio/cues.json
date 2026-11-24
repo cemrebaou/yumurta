@@ -1,0 +1,43 @@
+{
+ "DUR": 44.3,
+ "cues": [
+  {
+   "t": 4.4,
+   "type": "whoosh"
+  },
+  {
+   "t": 25.443,
+   "type": "whoosh"
+  },
+  {
+   "t": 36.15,
+   "type": "whoosh"
+  },
+  {
+   "t": 2.949,
+   "type": "boom"
+  },
+  {
+   "t": 24.034,
+   "type": "boom"
+  },
+  {
+   "t": 30.13,
+   "type": "boom"
+  },
+  {
+   "t": 10.531,
+   "type": "rise",
+   "dur": 0.5
+  },
+  {
+   "t": 39.72,
+   "type": "shimmer"
+  },
+  {
+   "t": 18.7,
+   "type": "rise",
+   "dur": 0.5
+  }
+ ]
+}
