@@ -108,6 +108,20 @@ const PROPS = {
   cup(g, x, y, s) { g.save(); g.translate(x, y); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#b8bfd0';
     g.beginPath(); g.roundRect(-26, -62, 52, 64, 8); g.fill(); g.stroke(); g.fillStyle = '#f6d64a'; g.beginPath(); g.ellipse(0, -60, 22, 7, 0, 0, 6.29); g.fill();
     g.beginPath(); g.arc(s * 30, -32, 15, -1.4, 1.4); g.stroke(); g.restore(); },
+  bulb(g, x, y, s, p) { g.save(); g.translate(x, y - 60); g.strokeStyle = PLUM; g.lineWidth = 6;
+    g.fillStyle = '#8a8a96'; g.beginPath(); g.roundRect(-14, 18, 28, 26, 4); g.fill(); g.stroke();
+    if (p.bulbLit) { const gr = g.createRadialGradient(0, -10, 4, 0, -10, 70); gr.addColorStop(0, 'rgba(255,250,210,.95)'); gr.addColorStop(1, 'rgba(255,220,120,0)'); g.fillStyle = gr; g.beginPath(); g.arc(0, -10, 70, 0, 6.29); g.fill(); }
+    g.fillStyle = p.bulbLit ? '#fff4b0' : '#dfe8f2'; g.beginPath(); g.ellipse(0, -10, 30, 34, 0, 0, 6.29); g.fill(); g.stroke();
+    g.strokeStyle = p.bulbLit ? '#ff9a2a' : '#6a6a76'; g.lineWidth = 4; g.beginPath(); g.moveTo(-8, 16); g.lineTo(-6, -8); g.lineTo(0, -14); g.lineTo(6, -8); g.lineTo(8, 16); g.stroke();
+    g.fillStyle = '#ffffff'; g.beginPath(); g.ellipse(-12, -24, 6, 10, -.4, 0, 6.29); g.fill(); g.restore(); },
+  earpiece(g, x, y, s) { g.save(); g.translate(x, y - 30); g.scale(s, 1); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#2a2440';
+    g.beginPath(); g.moveTo(-14, 30); g.lineTo(14, 30); g.lineTo(26, -30); g.lineTo(-26, -30); g.closePath(); g.fill(); g.stroke();
+    g.fillStyle = '#e8b84a'; g.beginPath(); g.ellipse(0, -30, 26, 8, 0, 0, 6.29); g.fill(); g.stroke(); g.restore(); },
+  candle(g, x, y) { g.save(); g.translate(x, y - 40); g.strokeStyle = PLUM; g.lineWidth = 6;
+    g.fillStyle = '#e8b84a'; g.beginPath(); g.ellipse(0, 30, 34, 10, 0, 0, 6.29); g.fill(); g.stroke();
+    g.fillStyle = '#f7f3ea'; g.beginPath(); g.roundRect(-11, -30, 22, 60, 4); g.fill(); g.stroke();
+    const gr = g.createRadialGradient(0, -48, 2, 0, -48, 40); gr.addColorStop(0, 'rgba(255,230,160,.9)'); gr.addColorStop(1, 'rgba(255,190,90,0)'); g.fillStyle = gr; g.beginPath(); g.arc(0, -48, 40, 0, 6.29); g.fill();
+    g.fillStyle = '#ffb83a'; g.beginPath(); g.ellipse(0, -46, 8, 15, 0, 0, 6.29); g.fill(); g.fillStyle = '#fff6c0'; g.beginPath(); g.ellipse(0, -42, 4, 8, 0, 0, 6.29); g.fill(); g.restore(); },
   lemon(g, x, y) { g.save(); g.translate(x, y - 20); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#ffd83a';
     g.beginPath(); g.ellipse(0, 0, 34, 26, -.2, 0, 6.29); g.fill(); g.stroke(); g.fillStyle = '#fff3a0'; g.beginPath(); g.ellipse(-10, -8, 10, 6, -.3, 0, 6.29); g.fill(); g.restore(); },
   lime(g, x, y) { g.save(); g.translate(x, y - 20); g.strokeStyle = PLUM; g.lineWidth = 6; g.fillStyle = '#6ec23a';
